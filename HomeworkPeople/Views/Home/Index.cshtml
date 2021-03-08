@@ -1,0 +1,58 @@
+﻿@using HomeworkPeople.Data;
+@model ErrorViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (!String.IsNullOrEmpty(Model.Message))
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                @Model.Message
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/Home/Add" class="btn btn-primary">Add People</a>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Age</th>
+                        <th>Delete<th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Person person in Model.People)
+                    {
+                    <tr>
+                        <td>@person.FirstName</td>
+                        <td>@person.LastName</td>
+                        <td>@person.Age </td>
+                        <td>
+                            <form action="/Home/DeletePerson" method="POST">
+                                <input type="hidden" name="id" value="@person.Id">
+                                <button class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div> 
